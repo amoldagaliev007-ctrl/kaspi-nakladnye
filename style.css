@@ -52,3 +52,14 @@ h1{font-size:46px;line-height:1.15;font-weight:500;letter-spacing:-.02em;margin:
 .pill.primary:disabled{opacity:.45;cursor:not-allowed}
 .small-note{font-size:13px}
 .privacy{margin:10px 0 18px}
+
+/* Мобильная раскладка */
+@media (max-width:640px){
+  .segmented{display:grid;grid-template-columns:1fr 1fr;width:100%;box-sizing:border-box;border-radius:16px;gap:6px;padding:6px}
+  .segmented button{width:100%;padding:12px 8px;border-radius:12px;text-align:center;line-height:1.2;white-space:normal}
+  .segmented.small{grid-template-columns:repeat(5,1fr)}
+  .segmented.small button{min-width:0;padding:10px 0}
+  .points{display:grid;grid-template-columns:1fr;gap:8px}
+  .point{width:100%;justify-content:space-between;border-radius:14px}
+  .btn,button.primary,#build,#download,#saveAs,#rerender{width:100%}
+}
