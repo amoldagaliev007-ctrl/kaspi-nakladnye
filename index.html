@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; connect-src 'self' blob: data:; font-src 'self' data:">
+<title>Сборщик накладных Kaspi</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="logo">K</span>Сборщик накладных Kaspi</div>
+  <span class="muted small-note">Работает в браузере</span>
+</header>
+
+<main class="wrap">
+  <div class="badge"><span>Бесплатно</span><span class="sep"></span><b>Без загрузки на сервер</b></div>
+  <h1>Объединить накладные Каспи<br><span class="accent">в один PDF</span></h1>
+  <p class="subtitle">Перетащите ZIP-архив или PDF-файлы из кабинета продавца — выберите нужный пункт приема (например, «Астана - ZMMLR» или «Костанай - ALCOM») — получите его накладные без повторов за день, отсортированные по товару. Печать на A4, по 2–16 на лист или на термоэтикетки 100×150 и 75×120.</p>
+
+  <section class="formats">
+    <div class="label">Формат печати</div>
+    <div class="segmented" id="formatGroup">
+      <button data-format="a4" class="active">A4</button>
+      <button data-format="a4_nup">A4, несколько на листе</button>
+      <button data-format="thermal_100x150">Термо 100×150</button>
+      <button data-format="thermal_75x120">Термо 75×120</button>
+    </div>
+    <div class="segmented small hidden" id="perSheetGroup">
+      <span class="hint">на листе:</span>
+      <button data-n="2">2</button><button data-n="4" class="active">4</button><button data-n="6">6</button><button data-n="8">8</button><button data-n="16">16</button>
+    </div>
+  </section>
+
+  <label class="dropzone" id="dropzone">
+    <input type="file" id="fileInput" accept=".zip,.pdf,application/zip,application/pdf" multiple hidden>
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>
+    <div class="dz-title">Перетащите архив или накладные сюда</div>
+    <div class="dz-sub">или <span class="link">выберите файлы</span> · ZIP или PDF из кабинета Kaspi</div>
+  </label>
+  <p class="foot privacy">🔒 Накладные обрабатываются прямо в браузере и не загружаются на сервер</p>
+
+  <section class="card hidden" id="pointsCard">
+    <div class="card-head">
+      <div><b>Пункт приема</b> <span class="muted" id="scanInfo"></span></div>
+      <button class="pill ghost small" id="changeZip">Другие файлы</button>
+    </div>
+    <div class="points" id="pointsGroup"></div>
+    <div class="actions">
+      <button class="pill primary" id="build">Собрать PDF</button>
+      <span class="muted" id="selInfo"></span>
+    </div>
+  </section>
+
+  <div class="progress hidden" id="progress"><span class="spinner"></span><span id="progressText">Обрабатываю…</span></div>
+  <div class="banner error hidden" id="error"></div>
+
+  <section class="card hidden" id="result">
+    <div class="result-msg" id="resultMsg"></div>
+    <div class="actions hidden" id="resultActions">
+      <span class="filename" id="resultName"></span>
+      <button class="pill primary" id="download">Скачать PDF</button>
+      <button class="pill ghost" id="rerender">Пересобрать в выбранном формате</button>
+    </div>
+    <ul class="list" id="resultList"></ul>
+  </section>
+
+  <section class="card" id="today">
+    <div class="card-head">
+      <div><b>Сегодня</b> <span class="muted" id="todayDate"></span></div>
+      <div class="muted"><span id="todayCount">0</span> накладных · <span id="batchCount">0</span> партий
+        <button class="pill ghost small" id="reset">Сбросить день</button></div>
+    </div>
+    <ul class="list" id="batches"></ul>
+  </section>
+  <p class="foot">История за день хранится только в этом браузере.</p>
+</main>
+<script src="vendor/jszip.min.js"></script>
+<script src="vendor/pdf.min.js"></script>
+<script src="vendor/pdf-lib.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
